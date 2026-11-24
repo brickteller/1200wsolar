@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>1200W Solar — US Balcony &amp; Plug-In Solar Legality, 391W Rule &amp; Kit Selector</title>
+  <meta name="description" content="Check 2026–2027 US state balcony solar laws, decode the 391W vs. 1,200W NEC backfeed rule, verify 15A/20A circuit safety, and match plug-and-play solar kits." />
+  <style>
+    :root {
+      --bg: #0b1120;
+      --surface: #111827;
+      --card: #1e293b;
+      --card-alt: #263348;
+      --border: #334155;
+      --text: #f8fafc;
+      --muted: #94a3b8;
+      --amber: #f59e0b;
+      --amber-dark: #78350f;
+      --green: #10b981;
+      --green-dark: #064e3b;
+      --blue: #38bdf8;
+      --blue-dark: #0c4a6e;
+      --red: #f87171;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.55;
+    }
+    a { color: var(--blue); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* Top Domain Acquisition Banner */
+    .bin-banner {
+      background: linear-gradient(90deg, #1e293b 0%, #0f172a 100%);
+      border-bottom: 1px solid var(--amber);
+      padding: 0.55rem 1.25rem;
+      font-size: 0.84rem;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .bin-banner strong { color: var(--amber); }
+    .bin-btn {
+      background: var(--amber);
+      color: #0b1120;
+      font-weight: 700;
+      padding: 0.3rem 0.75rem;
+      border-radius: 6px;
+      font-size: 0.8rem;
+      text-decoration: none !important;
+      white-space: nowrap;
+    }
+    .bin-btn:hover { opacity: 0.92; }
+
+    header {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 2rem 1.25rem 1.25rem;
+    }
+    .eyebrow {
+      display: inline-block;
+      background: rgba(245, 158, 11, 0.14);
+      color: var(--amber);
+      border: 1px solid rgba(245, 158, 11, 0.35);
+      padding: 0.2rem 0.65rem;
+      border-radius: 999px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      margin-bottom: 0.75rem;
+    }
+    h1 {
+      margin: 0 0 0.5rem 0;
+      font-size: clamp(1.7rem, 3.2vw, 2.4rem);
+      letter-spacing: -0.02em;
+      line-height: 1.2;
+    }
+    h1 span { color: var(--amber); }
+    .lead {
+      color: var(--muted);
+      max-width: 760px;
+      margin: 0;
+      font-size: 1rem;
+    }
+
+    main {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 0 1.25rem 3rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.75rem;
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 1.5rem;
+    }
+    .card h2 {
+      margin: 0 0 0.3rem 0;
+      font-size: 1.25rem;
+      letter-spacing: -0.01em;
+    }
+    .card p.sub {
+      margin: 0 0 1.25rem 0;
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    /* Tier Switcher (391W vs 1200W) */
+    .tier-toggle {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.75rem;
+      margin-bottom: 1.25rem;
+    }
+    @media (max-width: 680px) {
+      .tier-toggle { grid-template-columns: 1fr; }
+    }
+    .tier-btn {
+      background: var(--surface);
+      border: 2px solid var(--border);
+      border-radius: 10px;
+      padding: 1rem;
+      text-align: left;
+      color: var(--text);
+      cursor: pointer;
+      transition: border-color 0.15s, background 0.15s;
+    }
+    .tier-btn:hover { background: var(--card-alt); }
+    .tier-btn.active {
+      border-color: var(--amber);
+      background: rgba(245, 158, 11, 0.08);
+    }
+    .tier-btn .badge {
+      display: inline-block;
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      padding: 0.15rem 0.5rem;
+      border-radius: 4px;
+      margin-bottom: 0.4rem;
+    }
+    .badge-391 { background: var(--blue-dark); color: var(--blue); }
+    .badge-1200 { background: var(--green-dark); color: var(--green); }
+    .tier-btn h3 { margin: 0 0 0.25rem 0; font-size: 1.05rem; }
+    .tier-btn p { margin: 0; font-size: 0.83rem; color: var(--muted); }
+
+    /* Interactive Circuit & Readiness Checker */
+    .checker-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1rem;
+      margin-bottom: 1.25rem;
+    }
+    .field label {
+      display: block;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--muted);
+      margin-bottom: 0.35rem;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+    select {
+      width: 100%;
+      padding: 0.6rem 0.75rem;
+      border-radius: 8px;
+      background: var(--bg);
+      color: var(--text);
+      border: 1px solid var(--border);
+      font-size: 0.92rem;
+    }
+
+    .result-box {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-left: 4px solid var(--green);
+      border-radius: 10px;
+      padding: 1.15rem;
+    }
+    .result-box.warn { border-left-color: var(--amber); }
+    .result-header {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 0.6rem;
+    }
+    .result-title { font-weight: 700; font-size: 1.05rem; }
+    .pill {
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 0.2rem 0.6rem;
+      border-radius: 999px;
+    }
+    .pill-active { background: var(--green-dark); color: var(--green); }
+    .pill-upcoming { background: var(--blue-dark); color: var(--blue); }
+    .pill-pending { background: var(--amber-dark); color: var(--amber); }
+    .result-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 0.75rem;
+      margin-top: 0.85rem;
+      padding-top: 0.85rem;
+      border-top: 1px solid var(--border);
+      font-size: 0.85rem;
+    }
+    .result-grid div span {
+      display: block;
+      color: var(--muted);
+      font-size: 0.75rem;
+      text-transform: uppercase;
+    }
+
+    /* Affiliate Kit Cards */
+    .kits-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1rem;
+    }
+    .kit-card {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1.1rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 0.85rem;
+    }
+    .kit-card.recommended {
+      border-color: var(--amber);
+      box-shadow: 0 0 0 1px rgba(245, 158, 11, 0.25);
+    }
+    .kit-tag {
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: var(--amber);
+    }
+    .kit-card h3 { margin: 0.2rem 0 0.4rem 0; font-size: 1rem; }
+    .kit-specs {
+      margin: 0;
+      padding-left: 1.1rem;
+      font-size: 0.83rem;
+      color: var(--muted);
+    }
+    .kit-specs li { margin-bottom: 0.25rem; }
+    .kit-cta {
+      display: block;
+      text-align: center;
+      background: var(--card-alt);
+      color: var(--text);
+      font-weight: 600;
+      font-size: 0.86rem;
+      padding: 0.6rem;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      text-decoration: none !important;
+    }
+    .kit-card.recommended .kit-cta {
+      background: var(--amber);
+      color: #0b1120;
+      border-color: var(--amber);
+    }
+    .kit-cta:hover { opacity: 0.92; }
+
+    /* State Tracker Table */
+    .table-wrap { overflow-x: auto; }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.88rem;
+      min-width: 680px;
+    }
+    th, td {
+      text-align: left;
+      padding: 0.75rem 0.65rem;
+      border-bottom: 1px solid var(--border);
+    }
+    th {
+      color: var(--muted);
+      font-size: 0.76rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    tr:hover td { background: rgba(255, 255, 255, 0.02); }
+
+    /* 391W Rule Explainer Box */
+    .math-callout {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1rem 1.25rem;
+      font-size: 0.88rem;
+      color: var(--muted);
+    }
+    .math-callout strong { color: var(--text); }
+    code {
+      background: var(--bg);
+      color: var(--amber);
+      padding: 0.15rem 0.4rem;
+      border-radius: 4px;
+      font-size: 0.84rem;
+    }
+
+    footer {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 1.5rem 1.25rem 2.5rem;
+      border-top: 1px solid var(--border);
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="bin-banner">
+    <div>
+      <strong>Domain Asset Notice:</strong> Exact-match US regulatory standard domain <strong>1200wsolar.com</strong> (plus companion <strong>391wsolar.com</strong>) is available for corporate acquisition.
+    </div>
+    <a id="afternicLink" class="bin-btn" href="https://afternic.com" target="_blank" rel="noopener">Buy 1200wsolar.com — $1,495 BIN ↗</a>
+  </div>
+
+  <header>
+    <div class="eyebrow">US Plug-In &amp; Balcony Solar Regulatory Guide (2026–2027)</div>
+    <h1><span>1200W</span> Solar &amp; <span>391W</span> Plug-In Readiness Checker</h1>
+    <p class="lead">
+      Decode state-by-state balcony solar carve-outs, check whether your apartment or patio circuit safely supports a <strong>391W plug-anywhere kit</strong> or a full <strong>1,200W system</strong>, and match compliant hardware.
+    </p>
+  </header>
+
+  <main>
+    <!-- STEP 1: SELECT TIER OR CHECK READINESS -->
+    <section class="card">
+      <h2>1. State Legality &amp; Circuit Safety Selector</h2>
+      <p class="sub">Select your state, housing type, and outlet circuit to see which plug-in solar tier fits your setup without tripping breakers.</p>
+
+      <div class="tier-toggle">
+Use code with caution.
+Tier 2 · Max Output
+1,200W Dedicated-Circuit Systems
+Standard US statutory cap (10A continuous at 120V). Best for homeowners & renters with a dedicated 15A/20A patio, balcony, or garage circuit.
+Tier 1 · Renter / Shared-Circuit Safe
+≤ 391W Plug-Anywhere Systems
+NEC 15A backfeed exemption tier (3.26A at 120V). Exempt from building-wiring changes and certain listing rules in VA, MD, CO & NJ.
+Your State
+Outdoor / Balcony Outlet Circuit
+Dedicated 20A GFCI Circuit (Nothing else plugged in)
+Dedicated 15A GFCI Circuit (Nothing else plugged in)
+Shared 15A Circuit / Unsure which breaker controls it
+
+
+Housing / Mounting Location
+Apartment / Condo Balcony Railing
+Ground Patio / Deck / Fence
+Garage / Shed / Pergola Roof
+
+
+2. Recommended Plug-In Kits & Mounting Hardware
+Matched to your circuit safety check above. Affiliate Disclosure: As an Amazon Associate and solar partner, we may earn a commission on qualifying purchases at no extra cost to you.
+3. Why Do State Laws Have Both a 391W Rule and a 1,200W Cap?
+Understanding the National Electrical Code (NEC) math written into Virginia HB 395, Maryland HB 1532, Colorado HB 26-1007, and New Jersey S 2368.
+A standard US household branch circuit is rated at 15 Amps × 120 Volts = 1,800W. Under NEC continuous-load and 120% busbar/branch backfeed allowances, injecting up to 3.26 Amps × 120V = 391.2W cannot overload a 15A household circuit—even if other appliances or electronics are running on that same breaker.
+Several state legislatures explicitly exempted systems ≤ 391W from building-wiring modifications and certain UL 3700 listing rules so apartment renters can safely plug a single 400W panel + 360W–391W microinverter into any standard outlet. Stepping up to 392W–1,200W unlocks 3× the solar harvest, provided you use a UL-listed plug-in system with anti-islanding protection on a lightly loaded or dedicated 15A/20A circuit.
+4. US Balcony & Plug-In Solar Legislation Tracker (2026–2027)
+Enacted state carve-outs removing traditional utility net-metering and permitting barriers for plug-in solar devices.
+
+State	Bill	Max Cap	391W / Low-Watt Tier	Status & Effective Date	HOA / Utility Notes
+
+Electrical & Legal Disclaimer: 1200wsolar.com provides educational summaries of state statutes and NEC circuit math for planning purposes only. Always verify local municipal electrical codes, utility notification rules, and lease/HOA covenants before connecting any grid-tied plug-in generation equipment.
+// CONFIGURATION — REPLACE WITH YOUR LIVE LINKS ONCE APPROVED
+const AFTERNIC_URL = "afternic.com";
+document.getElementById("afternicLink").href = AFTERNIC_URL;
+const STATES_DATA = [
+{
+code: "VA",
+name: "Virginia",
+bill: "HB 395 / SB 250",
+maxWatts: 1200,
+lowTier: "≤ 391W exempt from wiring/listing rules",
+status: "Effective Jan 1, 2027",
+statusType: "upcoming",
+hoaNote: "Restricts unreasonable HOA/condo bans; no utility net-metering agreement required for compliant ≤1,200W plug-in systems."
+},
+{
+code: "CA",
+name: "California",
+bill: "SB 868",
+maxWatts: 1200,
+lowTier: "Standard UL 3700 anti-islanding required",
+status: "Effective Jan 1, 2027",
+statusType: "upcoming",
+hoaNote: "Streamlines plug-in balcony solar interconnection without full NEM 3.0 utility engineering review."
+},
+{
+code: "NH",
+name: "New Hampshire",
+bill: "SB 540",
+maxWatts: 1200,
+lowTier: "Covers plug-in systems up to 1,200W",
+status: "Effective Jan 1, 2027",
+statusType: "upcoming",
+hoaNote: "Exempts ≤1,200W portable plug-in solar devices from formal utility interconnection tariffs."
+},
+{
+code: "NJ",
+name: "New Jersey",
+bill: "S 2368 / A 4836",
+maxWatts: 1200,
+lowTier: "≤ 400W streamlined exemption tier",
+status: "Effective Mar 1, 2027",
+statusType: "upcoming",
+hoaNote: "Requires anti-islanding protection; exempts qualifying balcony systems from utility interconnection fees."
+},
+{
+code: "UT",
+name: "Utah",
+bill: "HB 340",
+maxWatts: 1200,
+lowTier: "First-in-nation 1,200W plug-in standard",
+status: "Active (Enacted 2025)",
+statusType: "active",
+hoaNote: "Exempts portable ≤1,200W plug-in solar from utility net-metering agreements."
+},
+{
+code: "MD",
+name: "Maryland",
+bill: "HB 1532",
+maxWatts: 1200,
+lowTier: "≤ 391W exempt from UL 3700 listing rule",
+status: "Active (Since Jul 2026)",
+statusType: "active",
+hoaNote: "Protects renter/condo balcony installations; simple utility notification only."
+},
+{
+code: "ME",
+name: "Maine",
+bill: "LD 1730",
+maxWatts: 1200,
+lowTier: "≤ 420W self-install plug-in tier",
+status: "Active (Since Jul 2026)",
+statusType: "active",
+hoaNote: "Allows plug-and-play balcony solar up to 1,200W without formal utility interconnection contracts."
+},
+{
+code: "VT",
+name: "Vermont",
+bill: "S. 202",
+maxWatts: 1200,
+lowTier: "Covers plug-in systems up to 1,200W",
+status: "Active (Since Jul 2026)",
+statusType: "active",
+hoaNote: "Exempts residential plug-in solar devices ≤1,200W from Certificate of Public Good permitting."
+},
+{
+code: "CT",
+name: "Connecticut",
+bill: "HB 5340",
+maxWatts: 1200,
+lowTier: "Covers plug-in systems up to 1,200W",
+status: "Active (Since Oct 2026)",
+statusType: "active",
+hoaNote: "Bars utility standby fees on compliant ≤1,200W balcony solar units."
+},
+{
+code: "CO",
+name: "Colorado",
+bill: "HB 26-1007",
+maxWatts: 1920,
+lowTier: "≤ 391W NEC exemption + up to 1,920W cap",
+status: "Active (Since Aug 2026)",
+statusType: "active",
+hoaNote: "Highest US residential plug-in limit (1,920W on 20A circuits; 391W exemption on standard 15A outlets)."
+},
+{
+code: "NY",
+name: "New York",
+bill: "S 8512 / A 9111",
+maxWatts: 1200,
+lowTier: "1,200W plug-in carve-out",
+status: "Passed Legislature",
+statusType: "pending",
+hoaNote: "Awaiting final enactment; aligns NY balcony solar with the 1,200W UL 3700 framework."
+},
+{
+code: "OTHER",
+name: "Other US States (PA, NC, SC, TX, FL, IL, etc.)",
+bill: "2027 Session Bills Pending",
+maxWatts: 1200,
+lowTier: "Check local utility rules before backfeeding",
+status: "Pending / Standard Interconnect",
+statusType: "pending",
+hoaNote: "In states without a plug-in carve-out yet, use a zero-export smart plug/battery or check utility rules before grid-tying."
+}
+];
+// REPLACE THESE PLACEHOLDER URLS WITH YOUR TRACKED AMAZON ASSOCIATES / IMPACT LINKS
+const AFFILIATE_KITS = [
+{
+id: "kit-391",
+tier: "391w",
+tag: "Tier 1 · Renter & Shared-Circuit Safe",
+title: "400W Plug-Anywhere Balcony Starter Kit (≤ 391W Output)",
+specs: [
+"Single 400W rigid or lightweight flexible solar panel",
+"360W–391W UL-listed anti-islanding microinverter (3.26A max)",
+"Safe on shared 15A apartment outlets without breaker trips",
+"Est. daily harvest: 1.2 – 1.8 kWh/day"
+],
+url: "amazon.com"
+},
+{
+id: "kit-1200",
+tier: "1200w",
+tag: "Tier 2 · Full US Statutory Max",
+title: "1,200W High-Output Plug-In Solar Bundle (3×400W Panels)",
+specs: [
+"1,200W total solar array + UL-listed 1,200W grid-tie microinverter",
+"Designed for dedicated 15A or 20A patio/garage GFCI outlets",
+"Real-time Wi-Fi app monitoring + automatic anti-islanding shutoff",
+"Est. daily harvest: 4.0 – 5.8 kWh/day"
+],
+url: "amazon.com"
+},
+{
+id: "kit-battery",
+tier: "1200w",
+tag: "Zero-Export & Evening Peak Shifting",
+title: "1,200W Balcony Solar + 2kWh LiFePO4 Plug-In Storage System",
+specs: [
+"Stores midday solar in a 2,048Wh LFP battery for evening use",
+"Smart meter CT clamp prevents unwanted grid backfeed",
+"Works as emergency blackout backup power + daily bill offset",
+"Ideal for states with pending laws or TOU evening rates"
+],
+url: "amazon.com"
+},
+{
+id: "kit-mounts",
+tier: "both",
+tag: "Required Mounting & Safety Hardware",
+title: "Adjustable Balcony Railing Brackets & Stainless Safety Cables",
+specs: [
+"Heavy-duty anodized aluminum hooks for round/square railings",
+"0°–35° tilt adjustment boosts winter/fall solar yield by up to 25%",
+"Includes secondary stainless steel wind-retention tether",
+"Pair with a $15 outlet watt-meter to verify circuit draw"
+],
+url: "amazon.com"
+}
+];
+let activeTier = "1200w";
+function setTier(tier) {
+activeTier = tier;
+document.getElementById("btnTier1200").classList.toggle("active", tier === "1200w");
+document.getElementById("btnTier391").classList.toggle("active", tier === "391w");
+if (tier === "391w") {
+document.getElementById("circuitSelect").value = "shared15";
+} else if (document.getElementById("circuitSelect").value === "shared15") {
+document.getElementById("circuitSelect").value = "dedicated20";
+}
+updateAssessment();
+}
+function initPage() {
+// Support 391wsolar.com redirect via #tier=391w
+if (window.location.hash.includes("391w")) {
+activeTier = "391w";
+document.getElementById("btnTier1200").classList.remove("active");
+document.getElementById("btnTier391").classList.add("active");
+document.getElementById("circuitSelect").value = "shared15";
+}
+const select = document.getElementById("stateSelect");
+STATES_DATA.forEach(st => {
+const opt = document.createElement("option");
+opt.value = st.code;
+opt.textContent = ${st.name} (${st.bill} — ${st.status});
+select.appendChild(opt);
+});
+const tbody = document.getElementById("stateTableBody");
+tbody.innerHTML = STATES_DATA.map(st => {
+const pillCls = st.statusType === "active" ? "pill-active" : (st.statusType === "upcoming" ? "pill-upcoming" : "pill-pending");
+return `
+${st.name}
+${st.bill}${st.maxWatts.toLocaleString()}W${st.lowTier}${st.status}${st.hoaNote}`;
+}).join("");
+updateAssessment();
+}
+function updateAssessment() {
+const code = document.getElementById("stateSelect").value;
+const circuit = document.getElementById("circuitSelect").value;
+const housing = document.getElementById("housingSelect").value;
+const st = STATES_DATA.find(s => s.code === code) || STATES_DATA[0];
+// Sync tier button highlight with circuit choice
+const recommendedTier = circuit === "shared15" ? "391w" : "1200w";
+document.getElementById("btnTier1200").classList.toggle("active", recommendedTier === "1200w");
+document.getElementById("btnTier391").classList.toggle("active", recommendedTier === "391w");
+const box = document.getElementById("assessmentResult");
+const isPending = st.statusType === "pending";
+box.className = "result-box" + (isPending || circuit === "shared15" ? " warn" : "");
+const pillCls = st.statusType === "active" ? "pill-active" : (st.statusType === "upcoming" ? "pill-upcoming" : "pill-pending");
+let verdictTitle = "";
+let verdictText = "";
+if (circuit === "shared15") {
+verdictTitle = Recommended: ≤ 391W Plug-Anywhere Tier (${st.name});
+verdictText = Because your outlet shares a 15A breaker (or the circuit is unverified), stay at or below <strong>391W (3.26A)</strong> to stay within NEC backfeed safety margins without nuisance breaker trips. ${st.lowTier}.;
+} else {
+verdictTitle = Cleared for Full ${st.maxWatts.toLocaleString()}W Plug-In Tier (${st.name});
+verdictText = Your dedicated ${circuit === "dedicated20" ? "20A" : "15A"} GFCI circuit safely handles a full <strong>1,200W (10A continuous)</strong> UL-listed plug-in solar system under ${st.name}'s <strong>${st.bill}</strong> framework.;
+}
+const mountAdvice = housing === "apartment"
+? "Use lightweight/rigid panels with secondary stainless safety tethers on balcony railings."
+: housing === "patio"
+? "Ground/fence tilt mounts (25°–35°) maximize year-round kWh output."
+: "Roof/pergola ballast or rail mounts allow full 3-panel 1,200W arrays easily.";
+box.innerHTML = `
+
+${verdictTitle}
+${st.status} · ${st.bill}
+${verdictText}
+State Max Cap${st.maxWatts.toLocaleString()}W Plug-In
+HOA / Utility Rule${st.hoaNote}
+Mounting Tip${mountAdvice}
+
+`;
+renderKits(recommendedTier);
+}
+function renderKits(recommendedTier) {
+const grid = document.getElementById("kitsGrid");
+grid.innerHTML = AFFILIATE_KITS.map(kit => {
+const isRec = kit.tier === recommendedTier;
+return `
+<div class="kit-card ${isRec ? "recommended" : ""}">
+
+${isRec ? "★ Best Match · " : ""}${kit.tag}
+${kit.title}
+{kit.specs.map(s => `<li>{s}`).join("")}
+View Compatible Kits on Amazon ↗
+
+`;
+}).join("");
+}
+initPage();
